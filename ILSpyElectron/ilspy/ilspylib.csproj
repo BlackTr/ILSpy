@@ -1,0 +1,1819 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Humanizer.Core" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Annotations.cs">
+      <Link>CSharp\Annotations.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\CSharpDecompiler.cs">
+      <Link>CSharp\CSharpDecompiler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\CallBuilder.cs">
+      <Link>CSharp\CallBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\ExpressionBuilder.cs">
+      <Link>CSharp\ExpressionBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\NRefactoryExtensions.cs">
+      <Link>CSharp\NRefactoryExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\StatementBuilder.cs">
+      <Link>CSharp\StatementBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TranslatedExpression.cs">
+      <Link>CSharp\TranslatedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TranslationContext.cs">
+      <Link>CSharp\TranslationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\WholeProjectDecompiler.cs">
+      <Link>CSharp\WholeProjectDecompiler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\CSharpAmbience.cs">
+      <Link>CSharp\OutputVisitor\CSharpAmbience.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\CSharpFormattingOptions.cs">
+      <Link>CSharp\OutputVisitor\CSharpFormattingOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\CSharpOutputVisitor.cs">
+      <Link>CSharp\OutputVisitor\CSharpOutputVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\FormattingOptionsFactory.cs">
+      <Link>CSharp\OutputVisitor\FormattingOptionsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\ITokenWriter.cs">
+      <Link>CSharp\OutputVisitor\ITokenWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\InsertMissingTokensDecorator.cs">
+      <Link>CSharp\OutputVisitor\InsertMissingTokensDecorator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\InsertParenthesesVisitor.cs">
+      <Link>CSharp\OutputVisitor\InsertParenthesesVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\InsertRequiredSpacesDecorator.cs">
+      <Link>CSharp\OutputVisitor\InsertRequiredSpacesDecorator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\InsertSpecialsDecorator.cs">
+      <Link>CSharp\OutputVisitor\InsertSpecialsDecorator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\OutputVisitor\TextWriterOutputFormatter.cs">
+      <Link>CSharp\OutputVisitor\TextWriterOutputFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\AliasNamespaceResolveResult.cs">
+      <Link>CSharp\Resolver\AliasNamespaceResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\AliasTypeResolveResult.cs">
+      <Link>CSharp\Resolver\AliasTypeResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\AwaitResolveResult.cs">
+      <Link>CSharp\Resolver\AwaitResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\CSharpConversions.cs">
+      <Link>CSharp\Resolver\CSharpConversions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\CSharpInvocationResolveResult.cs">
+      <Link>CSharp\Resolver\CSharpInvocationResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\CSharpOperators.cs">
+      <Link>CSharp\Resolver\CSharpOperators.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\CSharpResolver.cs">
+      <Link>CSharp\Resolver\CSharpResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\CastResolveResult.cs">
+      <Link>CSharp\Resolver\CastResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\DynamicInvocationResolveResult.cs">
+      <Link>CSharp\Resolver\DynamicInvocationResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\DynamicMemberResolveResult.cs">
+      <Link>CSharp\Resolver\DynamicMemberResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\LambdaResolveResult.cs">
+      <Link>CSharp\Resolver\LambdaResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\Log.cs">
+      <Link>CSharp\Resolver\Log.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\MemberLookup.cs">
+      <Link>CSharp\Resolver\MemberLookup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\MethodGroupResolveResult.cs">
+      <Link>CSharp\Resolver\MethodGroupResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\NameLookupMode.cs">
+      <Link>CSharp\Resolver\NameLookupMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\OverloadResolution.cs">
+      <Link>CSharp\Resolver\OverloadResolution.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\OverloadResolutionErrors.cs">
+      <Link>CSharp\Resolver\OverloadResolutionErrors.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\ReducedExtensionMethod.cs">
+      <Link>CSharp\Resolver\ReducedExtensionMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\RenameCallbackArguments.cs">
+      <Link>CSharp\Resolver\RenameCallbackArguments.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Resolver\TypeInference.cs">
+      <Link>CSharp\Resolver\TypeInference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\AstNode.cs">
+      <Link>CSharp\Syntax\AstNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\AstNodeCollection.cs">
+      <Link>CSharp\Syntax\AstNodeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\AstType.cs">
+      <Link>CSharp\Syntax\AstType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\CSharpModifierToken.cs">
+      <Link>CSharp\Syntax\CSharpModifierToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\CSharpTokenNode.cs">
+      <Link>CSharp\Syntax\CSharpTokenNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\CSharpUtil.cs">
+      <Link>CSharp\Syntax\CSharpUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\ComposedType.cs">
+      <Link>CSharp\Syntax\ComposedType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\DepthFirstAstVisitor.cs">
+      <Link>CSharp\Syntax\DepthFirstAstVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\DocumentationReference.cs">
+      <Link>CSharp\Syntax\DocumentationReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\ErrorNode.cs">
+      <Link>CSharp\Syntax\ErrorNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\IAnnotatable.cs">
+      <Link>CSharp\Syntax\IAnnotatable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\IAstVisitor.cs">
+      <Link>CSharp\Syntax\IAstVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Identifier.cs">
+      <Link>CSharp\Syntax\Identifier.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\IdentifierExpressionBackreference.cs">
+      <Link>CSharp\Syntax\IdentifierExpressionBackreference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\MemberType.cs">
+      <Link>CSharp\Syntax\MemberType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Modifiers.cs">
+      <Link>CSharp\Syntax\Modifiers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\NodeType.cs">
+      <Link>CSharp\Syntax\NodeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PrimitiveType.cs">
+      <Link>CSharp\Syntax\PrimitiveType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Role.cs">
+      <Link>CSharp\Syntax\Role.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Roles.cs">
+      <Link>CSharp\Syntax\Roles.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\SimpleType.cs">
+      <Link>CSharp\Syntax\SimpleType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\SyntaxExtensions.cs">
+      <Link>CSharp\Syntax\SyntaxExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\SyntaxTree.cs">
+      <Link>CSharp\Syntax\SyntaxTree.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TextLocation.cs">
+      <Link>CSharp\Syntax\TextLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TokenRole.cs">
+      <Link>CSharp\Syntax\TokenRole.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeSystemAstBuilder.cs">
+      <Link>CSharp\Syntax\TypeSystemAstBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\AnonymousMethodExpression.cs">
+      <Link>CSharp\Syntax\Expressions\AnonymousMethodExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\AnonymousTypeCreateExpression.cs">
+      <Link>CSharp\Syntax\Expressions\AnonymousTypeCreateExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ArrayCreateExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ArrayCreateExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ArrayInitializerExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ArrayInitializerExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\AsExpression.cs">
+      <Link>CSharp\Syntax\Expressions\AsExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\AssignmentExpression.cs">
+      <Link>CSharp\Syntax\Expressions\AssignmentExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\BaseReferenceExpression.cs">
+      <Link>CSharp\Syntax\Expressions\BaseReferenceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\BinaryOperatorExpression.cs">
+      <Link>CSharp\Syntax\Expressions\BinaryOperatorExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\CastExpression.cs">
+      <Link>CSharp\Syntax\Expressions\CastExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\CheckedExpression.cs">
+      <Link>CSharp\Syntax\Expressions\CheckedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ConditionalExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ConditionalExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\DefaultValueExpression.cs">
+      <Link>CSharp\Syntax\Expressions\DefaultValueExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\DirectionExpression.cs">
+      <Link>CSharp\Syntax\Expressions\DirectionExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ErrorExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ErrorExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\Expression.cs">
+      <Link>CSharp\Syntax\Expressions\Expression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\IdentifierExpression.cs">
+      <Link>CSharp\Syntax\Expressions\IdentifierExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\IndexerExpression.cs">
+      <Link>CSharp\Syntax\Expressions\IndexerExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\InvocationExpression.cs">
+      <Link>CSharp\Syntax\Expressions\InvocationExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\IsExpression.cs">
+      <Link>CSharp\Syntax\Expressions\IsExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\LambdaExpression.cs">
+      <Link>CSharp\Syntax\Expressions\LambdaExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\MemberReferenceExpression.cs">
+      <Link>CSharp\Syntax\Expressions\MemberReferenceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\NamedArgumentExpression.cs">
+      <Link>CSharp\Syntax\Expressions\NamedArgumentExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\NamedExpression.cs">
+      <Link>CSharp\Syntax\Expressions\NamedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\NullReferenceExpression.cs">
+      <Link>CSharp\Syntax\Expressions\NullReferenceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ObjectCreateExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ObjectCreateExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\OutVarDeclarationExpression.cs">
+      <Link>CSharp\Syntax\Expressions\OutVarDeclarationExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ParenthesizedExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ParenthesizedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\PointerReferenceExpression.cs">
+      <Link>CSharp\Syntax\Expressions\PointerReferenceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\PrimitiveExpression.cs">
+      <Link>CSharp\Syntax\Expressions\PrimitiveExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\QueryExpression.cs">
+      <Link>CSharp\Syntax\Expressions\QueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\SizeOfExpression.cs">
+      <Link>CSharp\Syntax\Expressions\SizeOfExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\StackAllocExpression.cs">
+      <Link>CSharp\Syntax\Expressions\StackAllocExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ThisReferenceExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ThisReferenceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\ThrowExpression.cs">
+      <Link>CSharp\Syntax\Expressions\ThrowExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\TypeOfExpression.cs">
+      <Link>CSharp\Syntax\Expressions\TypeOfExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\TypeReferenceExpression.cs">
+      <Link>CSharp\Syntax\Expressions\TypeReferenceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\UnaryOperatorExpression.cs">
+      <Link>CSharp\Syntax\Expressions\UnaryOperatorExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\UncheckedExpression.cs">
+      <Link>CSharp\Syntax\Expressions\UncheckedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Expressions\UndocumentedExpression.cs">
+      <Link>CSharp\Syntax\Expressions\UndocumentedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\Attribute.cs">
+      <Link>CSharp\Syntax\GeneralScope\Attribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\AttributeSection.cs">
+      <Link>CSharp\Syntax\GeneralScope\AttributeSection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\Comment.cs">
+      <Link>CSharp\Syntax\GeneralScope\Comment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\Constraint.cs">
+      <Link>CSharp\Syntax\GeneralScope\Constraint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\DelegateDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\DelegateDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\ExternAliasDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\ExternAliasDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\NamespaceDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\NamespaceDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\NewLineNode.cs">
+      <Link>CSharp\Syntax\GeneralScope\NewLineNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\PreProcessorDirective.cs">
+      <Link>CSharp\Syntax\GeneralScope\PreProcessorDirective.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\TextNode.cs">
+      <Link>CSharp\Syntax\GeneralScope\TextNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\TypeDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\TypeDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\TypeParameterDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\TypeParameterDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\UsingAliasDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\UsingAliasDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\UsingDeclaration.cs">
+      <Link>CSharp\Syntax\GeneralScope\UsingDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\GeneralScope\WhitespaceNode.cs">
+      <Link>CSharp\Syntax\GeneralScope\WhitespaceNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\AnyNode.cs">
+      <Link>CSharp\Syntax\PatternMatching\AnyNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\AnyNodeOrNull.cs">
+      <Link>CSharp\Syntax\PatternMatching\AnyNodeOrNull.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\Backreference.cs">
+      <Link>CSharp\Syntax\PatternMatching\Backreference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\BacktrackingInfo.cs">
+      <Link>CSharp\Syntax\PatternMatching\BacktrackingInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\Choice.cs">
+      <Link>CSharp\Syntax\PatternMatching\Choice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\INode.cs">
+      <Link>CSharp\Syntax\PatternMatching\INode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\Match.cs">
+      <Link>CSharp\Syntax\PatternMatching\Match.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\NamedNode.cs">
+      <Link>CSharp\Syntax\PatternMatching\NamedNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\OptionalNode.cs">
+      <Link>CSharp\Syntax\PatternMatching\OptionalNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\Pattern.cs">
+      <Link>CSharp\Syntax\PatternMatching\Pattern.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\PatternMatching\Repeat.cs">
+      <Link>CSharp\Syntax\PatternMatching\Repeat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\BlockStatement.cs">
+      <Link>CSharp\Syntax\Statements\BlockStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\BreakStatement.cs">
+      <Link>CSharp\Syntax\Statements\BreakStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\CheckedStatement.cs">
+      <Link>CSharp\Syntax\Statements\CheckedStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\ContinueStatement.cs">
+      <Link>CSharp\Syntax\Statements\ContinueStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\DoWhileStatement.cs">
+      <Link>CSharp\Syntax\Statements\DoWhileStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\EmptyStatement.cs">
+      <Link>CSharp\Syntax\Statements\EmptyStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\ExpressionStatement.cs">
+      <Link>CSharp\Syntax\Statements\ExpressionStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\FixedStatement.cs">
+      <Link>CSharp\Syntax\Statements\FixedStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\ForStatement.cs">
+      <Link>CSharp\Syntax\Statements\ForStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\ForeachStatement.cs">
+      <Link>CSharp\Syntax\Statements\ForeachStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\GotoStatement.cs">
+      <Link>CSharp\Syntax\Statements\GotoStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\IfElseStatement.cs">
+      <Link>CSharp\Syntax\Statements\IfElseStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\LabelStatement.cs">
+      <Link>CSharp\Syntax\Statements\LabelStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\LockStatement.cs">
+      <Link>CSharp\Syntax\Statements\LockStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\ReturnStatement.cs">
+      <Link>CSharp\Syntax\Statements\ReturnStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\Statement.cs">
+      <Link>CSharp\Syntax\Statements\Statement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\SwitchStatement.cs">
+      <Link>CSharp\Syntax\Statements\SwitchStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\ThrowStatement.cs">
+      <Link>CSharp\Syntax\Statements\ThrowStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\TryCatchStatement.cs">
+      <Link>CSharp\Syntax\Statements\TryCatchStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\UncheckedStatement.cs">
+      <Link>CSharp\Syntax\Statements\UncheckedStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\UnsafeStatement.cs">
+      <Link>CSharp\Syntax\Statements\UnsafeStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\UsingStatement.cs">
+      <Link>CSharp\Syntax\Statements\UsingStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\VariableDeclarationStatement.cs">
+      <Link>CSharp\Syntax\Statements\VariableDeclarationStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\WhileStatement.cs">
+      <Link>CSharp\Syntax\Statements\WhileStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\YieldBreakStatement.cs">
+      <Link>CSharp\Syntax\Statements\YieldBreakStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\Statements\YieldReturnStatement.cs">
+      <Link>CSharp\Syntax\Statements\YieldReturnStatement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\Accessor.cs">
+      <Link>CSharp\Syntax\TypeMembers\Accessor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\ConstructorDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\ConstructorDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\DestructorDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\DestructorDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\EntityDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\EntityDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\EnumMemberDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\EnumMemberDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\EventDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\EventDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\FieldDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\FieldDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\FixedFieldDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\FixedFieldDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\FixedVariableInitializer.cs">
+      <Link>CSharp\Syntax\TypeMembers\FixedVariableInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\IndexerDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\IndexerDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\MethodDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\MethodDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\OperatorDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\OperatorDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\ParameterDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\ParameterDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\PropertyDeclaration.cs">
+      <Link>CSharp\Syntax\TypeMembers\PropertyDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Syntax\TypeMembers\VariableInitializer.cs">
+      <Link>CSharp\Syntax\TypeMembers\VariableInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\AddCheckedBlocks.cs">
+      <Link>CSharp\Transforms\AddCheckedBlocks.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\AddXmlDocumentationTransform.cs">
+      <Link>CSharp\Transforms\AddXmlDocumentationTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\CombineQueryExpressions.cs">
+      <Link>CSharp\Transforms\CombineQueryExpressions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\ContextTrackingVisitor.cs">
+      <Link>CSharp\Transforms\ContextTrackingVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\ConvertConstructorCallIntoInitializer.cs">
+      <Link>CSharp\Transforms\ConvertConstructorCallIntoInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\CustomPatterns.cs">
+      <Link>CSharp\Transforms\CustomPatterns.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\DecimalConstantTransform.cs">
+      <Link>CSharp\Transforms\DecimalConstantTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\DeclareVariables.cs">
+      <Link>CSharp\Transforms\DeclareVariables.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\EscapeInvalidIdentifiers.cs">
+      <Link>CSharp\Transforms\EscapeInvalidIdentifiers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\FixNameCollisions.cs">
+      <Link>CSharp\Transforms\FixNameCollisions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\IAstTransform.cs">
+      <Link>CSharp\Transforms\IAstTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\IntroduceExtensionMethods.cs">
+      <Link>CSharp\Transforms\IntroduceExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\IntroduceQueryExpressions.cs">
+      <Link>CSharp\Transforms\IntroduceQueryExpressions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\IntroduceUnsafeModifier.cs">
+      <Link>CSharp\Transforms\IntroduceUnsafeModifier.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\IntroduceUsingDeclarations.cs">
+      <Link>CSharp\Transforms\IntroduceUsingDeclarations.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\PatternStatementTransform.cs">
+      <Link>CSharp\Transforms\PatternStatementTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\PrettifyAssignments.cs">
+      <Link>CSharp\Transforms\PrettifyAssignments.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\RemoveCLSCompliantAttribute.cs">
+      <Link>CSharp\Transforms\RemoveCLSCompliantAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\ReplaceMethodCallsWithOperators.cs">
+      <Link>CSharp\Transforms\ReplaceMethodCallsWithOperators.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\Transforms\TransformContext.cs">
+      <Link>CSharp\Transforms\TransformContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\AliasNamespaceReference.cs">
+      <Link>CSharp\TypeSystem\AliasNamespaceReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\AttributeTypeReference.cs">
+      <Link>CSharp\TypeSystem\AttributeTypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\CSharpAttribute.cs">
+      <Link>CSharp\TypeSystem\CSharpAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\CSharpTypeResolveContext.cs">
+      <Link>CSharp\TypeSystem\CSharpTypeResolveContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\ConstantValues.cs">
+      <Link>CSharp\TypeSystem\ConstantValues.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\MemberTypeOrNamespaceReference.cs">
+      <Link>CSharp\TypeSystem\MemberTypeOrNamespaceReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\MethodTypeParameterWithInheritedConstraints.cs">
+      <Link>CSharp\TypeSystem\MethodTypeParameterWithInheritedConstraints.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\ResolvedUsingScope.cs">
+      <Link>CSharp\TypeSystem\ResolvedUsingScope.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\SimpleTypeOrNamespaceReference.cs">
+      <Link>CSharp\TypeSystem\SimpleTypeOrNamespaceReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\TypeOrNamespaceReference.cs">
+      <Link>CSharp\TypeSystem\TypeOrNamespaceReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CSharp\TypeSystem\UsingScope.cs">
+      <Link>CSharp\TypeSystem\UsingScope.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Disassembler\DisassemblerHelpers.cs">
+      <Link>Disassembler\DisassemblerHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Disassembler\ILStructure.cs">
+      <Link>Disassembler\ILStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Disassembler\MethodBodyDisassembler.cs">
+      <Link>Disassembler\MethodBodyDisassembler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Disassembler\ReflectionDisassembler.cs">
+      <Link>Disassembler\ReflectionDisassembler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\DotNetCore\DotNetCorePathFinder.cs">
+      <Link>DotNetCore\DotNetCorePathFinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\DotNetCore\DotNetCorePathFinderExtensions.cs">
+      <Link>DotNetCore\DotNetCorePathFinderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\DotNetCore\UnresolvedAssemblyNameReference.cs">
+      <Link>DotNetCore\UnresolvedAssemblyNameReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\FlowAnalysis\ControlFlowNode.cs">
+      <Link>FlowAnalysis\ControlFlowNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\FlowAnalysis\DataFlowVisitor.cs">
+      <Link>FlowAnalysis\DataFlowVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\FlowAnalysis\DefiniteAssignmentVisitor.cs">
+      <Link>FlowAnalysis\DefiniteAssignmentVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\FlowAnalysis\Dominance.cs">
+      <Link>FlowAnalysis\Dominance.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\FlowAnalysis\ReachingDefinitionsVisitor.cs">
+      <Link>FlowAnalysis\ReachingDefinitionsVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\BlockBuilder.cs">
+      <Link>IL\BlockBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\DetectedLoop.cs">
+      <Link>IL\DetectedLoop.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\IInlineContext.cs">
+      <Link>IL\IInlineContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ILOpCodes.cs">
+      <Link>IL\ILOpCodes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ILReader.cs">
+      <Link>IL\ILReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ILTypeExtensions.cs">
+      <Link>IL\ILTypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ILVariable.cs">
+      <Link>IL\ILVariable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\InstructionFlags.cs">
+      <Link>IL\InstructionFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\InstructionOutputExtensions.cs">
+      <Link>IL\InstructionOutputExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions.cs">
+      <Link>IL\Instructions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\PrimitiveType.cs">
+      <Link>IL\PrimitiveType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\SemanticHelper.cs">
+      <Link>IL\SemanticHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\SlotInfo.cs">
+      <Link>IL\SlotInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\StackType.cs">
+      <Link>IL\StackType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\AsyncAwaitDecompiler.cs">
+      <Link>IL\ControlFlow\AsyncAwaitDecompiler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\ConditionDetection.cs">
+      <Link>IL\ControlFlow\ConditionDetection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\ControlFlowGraph.cs">
+      <Link>IL\ControlFlow\ControlFlowGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\ControlFlowSimplification.cs">
+      <Link>IL\ControlFlow\ControlFlowSimplification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\DetectPinnedRegions.cs">
+      <Link>IL\ControlFlow\DetectPinnedRegions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\ExitPoints.cs">
+      <Link>IL\ControlFlow\ExitPoints.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\LoopDetection.cs">
+      <Link>IL\ControlFlow\LoopDetection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\StateRangeAnalysis.cs">
+      <Link>IL\ControlFlow\StateRangeAnalysis.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\SwitchAnalysis.cs">
+      <Link>IL\ControlFlow\SwitchAnalysis.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\SwitchDetection.cs">
+      <Link>IL\ControlFlow\SwitchDetection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\SymbolicExecution.cs">
+      <Link>IL\ControlFlow\SymbolicExecution.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\ControlFlow\YieldReturnDecompiler.cs">
+      <Link>IL\ControlFlow\YieldReturnDecompiler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\Await.cs">
+      <Link>IL\Instructions\Await.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\BinaryNumericInstruction.cs">
+      <Link>IL\Instructions\BinaryNumericInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\Block.cs">
+      <Link>IL\Instructions\Block.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\BlockContainer.cs">
+      <Link>IL\Instructions\BlockContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\Branch.cs">
+      <Link>IL\Instructions\Branch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\CallInstruction.cs">
+      <Link>IL\Instructions\CallInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\Comp.cs">
+      <Link>IL\Instructions\Comp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\CompoundAssignmentInstruction.cs">
+      <Link>IL\Instructions\CompoundAssignmentInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\Conv.cs">
+      <Link>IL\Instructions\Conv.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\ILFunction.cs">
+      <Link>IL\Instructions\ILFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\ILInstruction.cs">
+      <Link>IL\Instructions\ILInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\ILVariableCollection.cs">
+      <Link>IL\Instructions\ILVariableCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\IfInstruction.cs">
+      <Link>IL\Instructions\IfInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\InstructionCollection.cs">
+      <Link>IL\Instructions\InstructionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\LdLen.cs">
+      <Link>IL\Instructions\LdLen.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\Leave.cs">
+      <Link>IL\Instructions\Leave.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\LockInstruction.cs">
+      <Link>IL\Instructions\LockInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\MemoryInstructions.cs">
+      <Link>IL\Instructions\MemoryInstructions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\NullCoalescingInstruction.cs">
+      <Link>IL\Instructions\NullCoalescingInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\PatternMatching.cs">
+      <Link>IL\Instructions\PatternMatching.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\SimpleInstruction.cs">
+      <Link>IL\Instructions\SimpleInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\SwitchInstruction.cs">
+      <Link>IL\Instructions\SwitchInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\ThreeValuedLogicInstructions.cs">
+      <Link>IL\Instructions\ThreeValuedLogicInstructions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\TryInstruction.cs">
+      <Link>IL\Instructions\TryInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\UnaryInstruction.cs">
+      <Link>IL\Instructions\UnaryInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Patterns\AnyNode.cs">
+      <Link>IL\Patterns\AnyNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Patterns\ListMatch.cs">
+      <Link>IL\Patterns\ListMatch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Patterns\Match.cs">
+      <Link>IL\Patterns\Match.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\AssignVariableNames.cs">
+      <Link>IL\Transforms\AssignVariableNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\BlockTransform.cs">
+      <Link>IL\Transforms\BlockTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\CachedDelegateInitialization.cs">
+      <Link>IL\Transforms\CachedDelegateInitialization.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\CopyPropagation.cs">
+      <Link>IL\Transforms\CopyPropagation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\DelegateConstruction.cs">
+      <Link>IL\Transforms\DelegateConstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\DetectCatchWhenConditionBlocks.cs">
+      <Link>IL\Transforms\DetectCatchWhenConditionBlocks.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\EarlyExpressionTransforms.cs">
+      <Link>IL\Transforms\EarlyExpressionTransforms.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\ExpressionTransforms.cs">
+      <Link>IL\Transforms\ExpressionTransforms.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\IILTransform.cs">
+      <Link>IL\Transforms\IILTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\ILInlining.cs">
+      <Link>IL\Transforms\ILInlining.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\LockTransform.cs">
+      <Link>IL\Transforms\LockTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\LoopingTransform.cs">
+      <Link>IL\Transforms\LoopingTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\NullCoalescingTransform.cs">
+      <Link>IL\Transforms\NullCoalescingTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\NullableLiftingTransform.cs">
+      <Link>IL\Transforms\NullableLiftingTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\RemoveDeadVariableInit.cs">
+      <Link>IL\Transforms\RemoveDeadVariableInit.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\SplitVariables.cs">
+      <Link>IL\Transforms\SplitVariables.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\StatementTransform.cs">
+      <Link>IL\Transforms\StatementTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\Stepper.cs">
+      <Link>IL\Transforms\Stepper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\TransformArrayInitializers.cs">
+      <Link>IL\Transforms\TransformArrayInitializers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\TransformAssignment.cs">
+      <Link>IL\Transforms\TransformAssignment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\TransformCollectionAndObjectInitializers.cs">
+      <Link>IL\Transforms\TransformCollectionAndObjectInitializers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Transforms\UsingTransform.cs">
+      <Link>IL\Transforms\UsingTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Output\ITextOutput.cs">
+      <Link>Output\ITextOutput.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Output\PlainTextOutput.cs">
+      <Link>Output\PlainTextOutput.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Output\TextOutputWriter.cs">
+      <Link>Output\TextOutputWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Output\TextTokenWriter.cs">
+      <Link>Output\TextTokenWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\AmbiguousResolveResult.cs">
+      <Link>Semantics\AmbiguousResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ArrayAccessResolveResult.cs">
+      <Link>Semantics\ArrayAccessResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ArrayCreateResolveResult.cs">
+      <Link>Semantics\ArrayCreateResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ByReferenceResolveResult.cs">
+      <Link>Semantics\ByReferenceResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ConstantResolveResult.cs">
+      <Link>Semantics\ConstantResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\Conversion.cs">
+      <Link>Semantics\Conversion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ConversionResolveResult.cs">
+      <Link>Semantics\ConversionResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ErrorResolveResult.cs">
+      <Link>Semantics\ErrorResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ForEachResolveResult.cs">
+      <Link>Semantics\ForEachResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\InitializedObjectResolveResult.cs">
+      <Link>Semantics\InitializedObjectResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\InvocationResolveResult.cs">
+      <Link>Semantics\InvocationResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\LocalResolveResult.cs">
+      <Link>Semantics\LocalResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\MemberResolveResult.cs">
+      <Link>Semantics\MemberResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\NamedArgumentResolveResult.cs">
+      <Link>Semantics\NamedArgumentResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\NamespaceResolveResult.cs">
+      <Link>Semantics\NamespaceResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\OperatorResolveResult.cs">
+      <Link>Semantics\OperatorResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ResolveResult.cs">
+      <Link>Semantics\ResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\SizeOfResolveResult.cs">
+      <Link>Semantics\SizeOfResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\ThisResolveResult.cs">
+      <Link>Semantics\ThisResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\TypeIsResolveResult.cs">
+      <Link>Semantics\TypeIsResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\TypeOfResolveResult.cs">
+      <Link>Semantics\TypeOfResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\TypeResolveResult.cs">
+      <Link>Semantics\TypeResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Semantics\UnknownMemberResolveResult.cs">
+      <Link>Semantics\UnknownMemberResolveResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Accessibility.cs">
+      <Link>TypeSystem\Accessibility.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\AnonymousType.cs">
+      <Link>TypeSystem\AnonymousType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ArrayType.cs">
+      <Link>TypeSystem\ArrayType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\AssemblyLoader.cs">
+      <Link>TypeSystem\AssemblyLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\AssemblyQualifiedTypeName.cs">
+      <Link>TypeSystem\AssemblyQualifiedTypeName.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ByReferenceType.cs">
+      <Link>TypeSystem\ByReferenceType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\CecilLoader.cs">
+      <Link>TypeSystem\CecilLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ComHelper.cs">
+      <Link>TypeSystem\ComHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\DecompilerTypeSystem.cs">
+      <Link>TypeSystem\DecompilerTypeSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\DefaultSolutionSnapshot.cs">
+      <Link>TypeSystem\DefaultSolutionSnapshot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\DomRegion.cs">
+      <Link>TypeSystem\DomRegion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Error.cs">
+      <Link>TypeSystem\Error.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\FullTypeName.cs">
+      <Link>TypeSystem\FullTypeName.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IAmbience.cs">
+      <Link>TypeSystem\IAmbience.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IAssembly.cs">
+      <Link>TypeSystem\IAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IAttribute.cs">
+      <Link>TypeSystem\IAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ICodeContext.cs">
+      <Link>TypeSystem\ICodeContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ICompilation.cs">
+      <Link>TypeSystem\ICompilation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IConstantValue.cs">
+      <Link>TypeSystem\IConstantValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IDecompilerTypeSystem.cs">
+      <Link>TypeSystem\IDecompilerTypeSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IEntity.cs">
+      <Link>TypeSystem\IEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IEvent.cs">
+      <Link>TypeSystem\IEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IField.cs">
+      <Link>TypeSystem\IField.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IFreezable.cs">
+      <Link>TypeSystem\IFreezable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IInterningProvider.cs">
+      <Link>TypeSystem\IInterningProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IMember.cs">
+      <Link>TypeSystem\IMember.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IMethod.cs">
+      <Link>TypeSystem\IMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\INamedElement.cs">
+      <Link>TypeSystem\INamedElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\INamespace.cs">
+      <Link>TypeSystem\INamespace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IParameter.cs">
+      <Link>TypeSystem\IParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IParameterizedMember.cs">
+      <Link>TypeSystem\IParameterizedMember.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IProjectContent.cs">
+      <Link>TypeSystem\IProjectContent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IProperty.cs">
+      <Link>TypeSystem\IProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ISolutionSnapshot.cs">
+      <Link>TypeSystem\ISolutionSnapshot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ISupportsInterning.cs">
+      <Link>TypeSystem\ISupportsInterning.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ISymbol.cs">
+      <Link>TypeSystem\ISymbol.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IType.cs">
+      <Link>TypeSystem\IType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ITypeDefinition.cs">
+      <Link>TypeSystem\ITypeDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ITypeParameter.cs">
+      <Link>TypeSystem\ITypeParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ITypeReference.cs">
+      <Link>TypeSystem\ITypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IUnresolvedFile.cs">
+      <Link>TypeSystem\IUnresolvedFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IVariable.cs">
+      <Link>TypeSystem\IVariable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\InheritanceHelper.cs">
+      <Link>TypeSystem\InheritanceHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\IntersectionType.cs">
+      <Link>TypeSystem\IntersectionType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\KnownTypeReference.cs">
+      <Link>TypeSystem\KnownTypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\NullableType.cs">
+      <Link>TypeSystem\NullableType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ParameterListComparer.cs">
+      <Link>TypeSystem\ParameterListComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ParameterizedType.cs">
+      <Link>TypeSystem\ParameterizedType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\PointerType.cs">
+      <Link>TypeSystem\PointerType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ProjectReference.cs">
+      <Link>TypeSystem\ProjectReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ReferenceResolvingException.cs">
+      <Link>TypeSystem\ReferenceResolvingException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ReflectionHelper.cs">
+      <Link>TypeSystem\ReflectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\ReflectionNameParseException.cs">
+      <Link>TypeSystem\ReflectionNameParseException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\SimpleTypeResolveContext.cs">
+      <Link>TypeSystem\SimpleTypeResolveContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\SpecialType.cs">
+      <Link>TypeSystem\SpecialType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\SpecializingDecompilerTypeSystem.cs">
+      <Link>TypeSystem\SpecializingDecompilerTypeSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TaskType.cs">
+      <Link>TypeSystem\TaskType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TopLevelTypeName.cs">
+      <Link>TypeSystem\TopLevelTypeName.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TypeKind.cs">
+      <Link>TypeSystem\TypeKind.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TypeParameterSubstitution.cs">
+      <Link>TypeSystem\TypeParameterSubstitution.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TypeSystemExtensions.cs">
+      <Link>TypeSystem\TypeSystemExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TypeUtils.cs">
+      <Link>TypeSystem\TypeUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TypeVisitor.cs">
+      <Link>TypeSystem\TypeVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\TypesHierarchyHelpers.cs">
+      <Link>TypeSystem\TypesHierarchyHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\VarArgInstanceMethod.cs">
+      <Link>TypeSystem\VarArgInstanceMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractFreezable.cs">
+      <Link>TypeSystem\Implementation\AbstractFreezable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractResolvedEntity.cs">
+      <Link>TypeSystem\Implementation\AbstractResolvedEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractResolvedMember.cs">
+      <Link>TypeSystem\Implementation\AbstractResolvedMember.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractResolvedTypeParameter.cs">
+      <Link>TypeSystem\Implementation\AbstractResolvedTypeParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractType.cs">
+      <Link>TypeSystem\Implementation\AbstractType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractUnresolvedEntity.cs">
+      <Link>TypeSystem\Implementation\AbstractUnresolvedEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AbstractUnresolvedMember.cs">
+      <Link>TypeSystem\Implementation\AbstractUnresolvedMember.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\AccessorOwnerMemberReference.cs">
+      <Link>TypeSystem\Implementation\AccessorOwnerMemberReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\BaseTypeCollector.cs">
+      <Link>TypeSystem\Implementation\BaseTypeCollector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\BlobReader.cs">
+      <Link>TypeSystem\Implementation\BlobReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultAssemblyReference.cs">
+      <Link>TypeSystem\Implementation\DefaultAssemblyReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultAttribute.cs">
+      <Link>TypeSystem\Implementation\DefaultAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultMemberReference.cs">
+      <Link>TypeSystem\Implementation\DefaultMemberReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultParameter.cs">
+      <Link>TypeSystem\Implementation\DefaultParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultResolvedEvent.cs">
+      <Link>TypeSystem\Implementation\DefaultResolvedEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultResolvedField.cs">
+      <Link>TypeSystem\Implementation\DefaultResolvedField.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultResolvedMethod.cs">
+      <Link>TypeSystem\Implementation\DefaultResolvedMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultResolvedProperty.cs">
+      <Link>TypeSystem\Implementation\DefaultResolvedProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultResolvedTypeDefinition.cs">
+      <Link>TypeSystem\Implementation\DefaultResolvedTypeDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultResolvedTypeParameter.cs">
+      <Link>TypeSystem\Implementation\DefaultResolvedTypeParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedAssembly.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedAttribute.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedEvent.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedField.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedField.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedMethod.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedParameter.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedProperty.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedTypeDefinition.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedTypeDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultUnresolvedTypeParameter.cs">
+      <Link>TypeSystem\Implementation\DefaultUnresolvedTypeParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DefaultVariable.cs">
+      <Link>TypeSystem\Implementation\DefaultVariable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\DummyTypeParameter.cs">
+      <Link>TypeSystem\Implementation\DummyTypeParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\ExplicitInterfaceImplementationMemberReference.cs">
+      <Link>TypeSystem\Implementation\ExplicitInterfaceImplementationMemberReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\GetClassTypeReference.cs">
+      <Link>TypeSystem\Implementation\GetClassTypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\GetMembersHelper.cs">
+      <Link>TypeSystem\Implementation\GetMembersHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\KnownTypeCache.cs">
+      <Link>TypeSystem\Implementation\KnownTypeCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\MergedNamespace.cs">
+      <Link>TypeSystem\Implementation\MergedNamespace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\MinimalCorlib.cs">
+      <Link>TypeSystem\Implementation\MinimalCorlib.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\NestedTypeReference.cs">
+      <Link>TypeSystem\Implementation\NestedTypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\ResolvedAttributeBlob.cs">
+      <Link>TypeSystem\Implementation\ResolvedAttributeBlob.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SimpleCompilation.cs">
+      <Link>TypeSystem\Implementation\SimpleCompilation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SimpleConstantValue.cs">
+      <Link>TypeSystem\Implementation\SimpleConstantValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SimpleInterningProvider.cs">
+      <Link>TypeSystem\Implementation\SimpleInterningProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SpecializedEvent.cs">
+      <Link>TypeSystem\Implementation\SpecializedEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SpecializedField.cs">
+      <Link>TypeSystem\Implementation\SpecializedField.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SpecializedMember.cs">
+      <Link>TypeSystem\Implementation\SpecializedMember.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SpecializedMethod.cs">
+      <Link>TypeSystem\Implementation\SpecializedMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SpecializedProperty.cs">
+      <Link>TypeSystem\Implementation\SpecializedProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\SpecializingMemberReference.cs">
+      <Link>TypeSystem\Implementation\SpecializingMemberReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\TypeParameterReference.cs">
+      <Link>TypeSystem\Implementation\TypeParameterReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\TypeWithElementType.cs">
+      <Link>TypeSystem\Implementation\TypeWithElementType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\UnknownType.cs">
+      <Link>TypeSystem\Implementation\UnknownType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\UnresolvedAttributeBlob.cs">
+      <Link>TypeSystem\Implementation\UnresolvedAttributeBlob.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\UnresolvedSecurityDeclarationBlob.cs">
+      <Link>TypeSystem\Implementation\UnresolvedSecurityDeclarationBlob.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\TypeSystem\Implementation\VoidTypeDefinition.cs">
+      <Link>TypeSystem\Implementation\VoidTypeDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\BitSet.cs">
+      <Link>Util\BitSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\BitVector16.cs">
+      <Link>Util\BitVector16.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\BusyManager.cs">
+      <Link>Util\BusyManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\CSharpPrimitiveCast.cs">
+      <Link>Util\CSharpPrimitiveCast.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\CacheManager.cs">
+      <Link>Util\CacheManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\CallbackOnDispose.cs">
+      <Link>Util\CallbackOnDispose.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\CollectionExtensions.cs">
+      <Link>Util\CollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\EmptyList.cs">
+      <Link>Util\EmptyList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\ExtensionMethods.cs">
+      <Link>Util\ExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\Interval.cs">
+      <Link>Util\Interval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\KeyComparer.cs">
+      <Link>Util\KeyComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\LazyInit.cs">
+      <Link>Util\LazyInit.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\LongDict.cs">
+      <Link>Util\LongDict.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\LongSet.cs">
+      <Link>Util\LongSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\MultiDictionary.cs">
+      <Link>Util\MultiDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\Platform.cs">
+      <Link>Util\Platform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\ProjectedList.cs">
+      <Link>Util\ProjectedList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\ReferenceComparer.cs">
+      <Link>Util\ReferenceComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\TreeTraversal.cs">
+      <Link>Util\TreeTraversal.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\UnicodeNewline.cs">
+      <Link>Util\UnicodeNewline.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Util\UnionFind.cs">
+      <Link>Util\UnionFind.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\CecilExtensions.cs">
+      <Link>CecilExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\DecompilerSettings.cs">
+      <Link>DecompilerSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\NRExtensions.cs">
+      <Link>NRExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono\Disposable.cs">
+      <Link>Mono\Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono\Empty.cs">
+      <Link>Mono\Empty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono\Type.cs">
+      <Link>Mono\Type.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ArrayType.cs">
+      <Link>Mono.Cecil\ArrayType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyDefinition.cs">
+      <Link>Mono.Cecil\AssemblyDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyFlags.cs">
+      <Link>Mono.Cecil\AssemblyFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyHashAlgorithm.cs">
+      <Link>Mono.Cecil\AssemblyHashAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyLinkedResource.cs">
+      <Link>Mono.Cecil\AssemblyLinkedResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyNameDefinition.cs">
+      <Link>Mono.Cecil\AssemblyNameDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyNameReference.cs">
+      <Link>Mono.Cecil\AssemblyNameReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyReader.cs">
+      <Link>Mono.Cecil\AssemblyReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\AssemblyWriter.cs">
+      <Link>Mono.Cecil\AssemblyWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\BaseAssemblyResolver.cs">
+      <Link>Mono.Cecil\BaseAssemblyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\CallSite.cs">
+      <Link>Mono.Cecil\CallSite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\Consts.cs">
+      <Link>Mono.Cecil\Consts.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\CustomAttribute.cs">
+      <Link>Mono.Cecil\CustomAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\DefaultAssemblyResolver.cs">
+      <Link>Mono.Cecil\DefaultAssemblyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\EmbeddedResource.cs">
+      <Link>Mono.Cecil\EmbeddedResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\EventAttributes.cs">
+      <Link>Mono.Cecil\EventAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\EventDefinition.cs">
+      <Link>Mono.Cecil\EventDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\EventReference.cs">
+      <Link>Mono.Cecil\EventReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ExportedType.cs">
+      <Link>Mono.Cecil\ExportedType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\FieldAttributes.cs">
+      <Link>Mono.Cecil\FieldAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\FieldDefinition.cs">
+      <Link>Mono.Cecil\FieldDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\FieldReference.cs">
+      <Link>Mono.Cecil\FieldReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\FileAttributes.cs">
+      <Link>Mono.Cecil\FileAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\FunctionPointerType.cs">
+      <Link>Mono.Cecil\FunctionPointerType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\GenericInstanceMethod.cs">
+      <Link>Mono.Cecil\GenericInstanceMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\GenericInstanceType.cs">
+      <Link>Mono.Cecil\GenericInstanceType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\GenericParameter.cs">
+      <Link>Mono.Cecil\GenericParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\GenericParameterAttributes.cs">
+      <Link>Mono.Cecil\GenericParameterAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IConstantProvider.cs">
+      <Link>Mono.Cecil\IConstantProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ICustomAttributeProvider.cs">
+      <Link>Mono.Cecil\ICustomAttributeProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IGenericInstance.cs">
+      <Link>Mono.Cecil\IGenericInstance.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IGenericParameterProvider.cs">
+      <Link>Mono.Cecil\IGenericParameterProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IMarshalInfoProvider.cs">
+      <Link>Mono.Cecil\IMarshalInfoProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IMemberDefinition.cs">
+      <Link>Mono.Cecil\IMemberDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IMetadataScope.cs">
+      <Link>Mono.Cecil\IMetadataScope.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IMetadataTokenProvider.cs">
+      <Link>Mono.Cecil\IMetadataTokenProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\IMethodSignature.cs">
+      <Link>Mono.Cecil\IMethodSignature.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\Import.cs">
+      <Link>Mono.Cecil\Import.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\LinkedResource.cs">
+      <Link>Mono.Cecil\LinkedResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ManifestResourceAttributes.cs">
+      <Link>Mono.Cecil\ManifestResourceAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MarshalInfo.cs">
+      <Link>Mono.Cecil\MarshalInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MemberDefinitionCollection.cs">
+      <Link>Mono.Cecil\MemberDefinitionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MemberReference.cs">
+      <Link>Mono.Cecil\MemberReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MetadataResolver.cs">
+      <Link>Mono.Cecil\MetadataResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MetadataSystem.cs">
+      <Link>Mono.Cecil\MetadataSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodAttributes.cs">
+      <Link>Mono.Cecil\MethodAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodCallingConvention.cs">
+      <Link>Mono.Cecil\MethodCallingConvention.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodDefinition.cs">
+      <Link>Mono.Cecil\MethodDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodImplAttributes.cs">
+      <Link>Mono.Cecil\MethodImplAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodReference.cs">
+      <Link>Mono.Cecil\MethodReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodReturnType.cs">
+      <Link>Mono.Cecil\MethodReturnType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodSemanticsAttributes.cs">
+      <Link>Mono.Cecil\MethodSemanticsAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\MethodSpecification.cs">
+      <Link>Mono.Cecil\MethodSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\Modifiers.cs">
+      <Link>Mono.Cecil\Modifiers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ModuleDefinition.cs">
+      <Link>Mono.Cecil\ModuleDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ModuleKind.cs">
+      <Link>Mono.Cecil\ModuleKind.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ModuleReference.cs">
+      <Link>Mono.Cecil\ModuleReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\NativeType.cs">
+      <Link>Mono.Cecil\NativeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PInvokeAttributes.cs">
+      <Link>Mono.Cecil\PInvokeAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PInvokeInfo.cs">
+      <Link>Mono.Cecil\PInvokeInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ParameterAttributes.cs">
+      <Link>Mono.Cecil\ParameterAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ParameterDefinition.cs">
+      <Link>Mono.Cecil\ParameterDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ParameterDefinitionCollection.cs">
+      <Link>Mono.Cecil\ParameterDefinitionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ParameterReference.cs">
+      <Link>Mono.Cecil\ParameterReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PinnedType.cs">
+      <Link>Mono.Cecil\PinnedType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PointerType.cs">
+      <Link>Mono.Cecil\PointerType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PropertyAttributes.cs">
+      <Link>Mono.Cecil\PropertyAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PropertyDefinition.cs">
+      <Link>Mono.Cecil\PropertyDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\PropertyReference.cs">
+      <Link>Mono.Cecil\PropertyReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\ReferenceType.cs">
+      <Link>Mono.Cecil\ReferenceType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\Resource.cs">
+      <Link>Mono.Cecil\Resource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\SecurityDeclaration.cs">
+      <Link>Mono.Cecil\SecurityDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\SentinelType.cs">
+      <Link>Mono.Cecil\SentinelType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TargetRuntime.cs">
+      <Link>Mono.Cecil\TargetRuntime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\Treatments.cs">
+      <Link>Mono.Cecil\Treatments.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeAttributes.cs">
+      <Link>Mono.Cecil\TypeAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeDefinition.cs">
+      <Link>Mono.Cecil\TypeDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeDefinitionCollection.cs">
+      <Link>Mono.Cecil\TypeDefinitionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeParser.cs">
+      <Link>Mono.Cecil\TypeParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeReference.cs">
+      <Link>Mono.Cecil\TypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeSpecification.cs">
+      <Link>Mono.Cecil\TypeSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\TypeSystem.cs">
+      <Link>Mono.Cecil\TypeSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\VariantType.cs">
+      <Link>Mono.Cecil\VariantType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil\WindowsRuntimeProjections.cs">
+      <Link>Mono.Cecil\WindowsRuntimeProjections.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\Code.cs">
+      <Link>Mono.Cecil.Cil\Code.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\CodeReader.cs">
+      <Link>Mono.Cecil.Cil\CodeReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\CodeWriter.cs">
+      <Link>Mono.Cecil.Cil\CodeWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\Document.cs">
+      <Link>Mono.Cecil.Cil\Document.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\ExceptionHandler.cs">
+      <Link>Mono.Cecil.Cil\ExceptionHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\ILProcessor.cs">
+      <Link>Mono.Cecil.Cil\ILProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\Instruction.cs">
+      <Link>Mono.Cecil.Cil\Instruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\MethodBody.cs">
+      <Link>Mono.Cecil.Cil\MethodBody.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\OpCode.cs">
+      <Link>Mono.Cecil.Cil\OpCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\OpCodes.cs">
+      <Link>Mono.Cecil.Cil\OpCodes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\PortablePdb.cs">
+      <Link>Mono.Cecil.Cil\PortablePdb.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\SequencePoint.cs">
+      <Link>Mono.Cecil.Cil\SequencePoint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\Symbols.cs">
+      <Link>Mono.Cecil.Cil\Symbols.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\VariableDefinition.cs">
+      <Link>Mono.Cecil.Cil\VariableDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Cil\VariableReference.cs">
+      <Link>Mono.Cecil.Cil\VariableReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\BlobHeap.cs">
+      <Link>Mono.Cecil.Metadata\BlobHeap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\Buffers.cs">
+      <Link>Mono.Cecil.Metadata\Buffers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\CodedIndex.cs">
+      <Link>Mono.Cecil.Metadata\CodedIndex.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\ElementType.cs">
+      <Link>Mono.Cecil.Metadata\ElementType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\GuidHeap.cs">
+      <Link>Mono.Cecil.Metadata\GuidHeap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\Heap.cs">
+      <Link>Mono.Cecil.Metadata\Heap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\MetadataToken.cs">
+      <Link>Mono.Cecil.Metadata\MetadataToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\PdbHeap.cs">
+      <Link>Mono.Cecil.Metadata\PdbHeap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\Row.cs">
+      <Link>Mono.Cecil.Metadata\Row.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\StringHeap.cs">
+      <Link>Mono.Cecil.Metadata\StringHeap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\TableHeap.cs">
+      <Link>Mono.Cecil.Metadata\TableHeap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\TokenType.cs">
+      <Link>Mono.Cecil.Metadata\TokenType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\UserStringHeap.cs">
+      <Link>Mono.Cecil.Metadata\UserStringHeap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.Metadata\Utilities.cs">
+      <Link>Mono.Cecil.Metadata\Utilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\BinaryStreamReader.cs">
+      <Link>Mono.Cecil.PE\BinaryStreamReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\BinaryStreamWriter.cs">
+      <Link>Mono.Cecil.PE\BinaryStreamWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\ByteBuffer.cs">
+      <Link>Mono.Cecil.PE\ByteBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\ByteBufferEqualityComparer.cs">
+      <Link>Mono.Cecil.PE\ByteBufferEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\DataDirectory.cs">
+      <Link>Mono.Cecil.PE\DataDirectory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\Image.cs">
+      <Link>Mono.Cecil.PE\Image.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\ImageReader.cs">
+      <Link>Mono.Cecil.PE\ImageReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\ImageWriter.cs">
+      <Link>Mono.Cecil.PE\ImageWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\Section.cs">
+      <Link>Mono.Cecil.PE\Section.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Cecil.PE\TextMap.cs">
+      <Link>Mono.Cecil.PE\TextMap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Collections.Generic\Collection.cs">
+      <Link>Mono.Collections.Generic\Collection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Collections.Generic\ReadOnlyCollection.cs">
+      <Link>Mono.Collections.Generic\ReadOnlyCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Security.Cryptography\CryptoConvert.cs">
+      <Link>Mono.Security.Cryptography\CryptoConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cecil\Mono.Security.Cryptography\CryptoService.cs">
+      <Link>Mono.Security.Cryptography\CryptoService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\GetPotentiallyNestedClassTypeReference.cs">
+      <Link>Documentation\GetPotentiallyNestedClassTypeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\IdStringMemberReference.cs">
+      <Link>Documentation\IdStringMemberReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\IdStringProvider.cs">
+      <Link>Documentation\IdStringProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\XmlDocKeyProvider.cs">
+      <Link>Documentation\XmlDocKeyProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\XmlDocLoader.cs">
+      <Link>Documentation\XmlDocLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\XmlDocumentationProvider.cs">
+      <Link>Documentation\XmlDocumentationProvider.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\ICSharpCode.Decompiler\IL\ILOpCodes.tt">
+      <Link>IL\ILOpCodes.tt</Link>
+    </None>
+    <None Include="..\..\ICSharpCode.Decompiler\IL\Instructions.tt">
+      <Link>IL\Instructions.tt</Link>
+    </None>
+  </ItemGroup>
+</Project>

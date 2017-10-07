@@ -11,3 +11,6 @@ _ReSharper*/
 *.patch
 .vs/
 /ILSpy.AddIn/Packages/*
+*.userprefs
+package-lock.json
+ILSpyElectron/node_modules

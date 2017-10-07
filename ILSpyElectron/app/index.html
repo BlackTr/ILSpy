@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>ILSpy</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" title="Default" href="css/highlight/default.css" disabled>
+    <link rel="alternate stylesheet" title="Dark" href="css/highlight/dark.css" disabled>
+    <link rel="alternate stylesheet" title="Dracula" href="css/highlight/dracula.css" disabled>
+    <link rel="alternate stylesheet" title="Far" href="css/highlight/far.css" disabled>
+    <link rel="alternate stylesheet" title="Idea" href="css/highlight/idea.css" disabled>
+    <link rel="alternate stylesheet" title="Vs" href="css/highlight/vs.css" disabled>
+  </head>
+  <body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+		    <div class="navbar-header">
+			    <button id="openFile" class="btn btn-default navbar-btn">Open</button>
+			    <form class="navbar-form navbar-right">
+				    <div class="form-group">
+				        <label for="cfgTheme">Theme</label>
+				        <select id="cfgTheme" class="form-control" />
+				        <label>
+				        	<input type="checkbox" id="cfgDebug"/>
+				        	Debug
+				    	</label>
+				    </div>
+ 			    </form>
+		    </div>
+	    </div>
+    </nav>
+    <div class="container">
+    	<pre class="collapse" id="codeArea"><code id="codeView" class="cs"></code></pre>
+	</div>
+
+	<script src="js/highlight.pack.js"></script>
+	<script>window.$ = window.jQuery = require('../node_modules/jquery/dist/jquery.min');</script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+  </body>
+</html>
