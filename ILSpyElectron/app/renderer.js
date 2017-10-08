@@ -14,6 +14,8 @@ document.getElementById('openFile').addEventListener('click',function() {
 		if (fileNames === undefined) return;
 	 	var fileName = fileNames[0];
 
+	 	console.log(fileName);
+
 		var decompileFn = edge.func({
 		     assemblyFile: 'ilspy/bin/Debug/netstandard2.0/ilspylib.dll',
 		     typeName: 'ILSpy.Decompiler',

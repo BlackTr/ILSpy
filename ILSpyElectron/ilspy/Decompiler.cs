@@ -16,24 +16,31 @@ namespace ILSpy
     {
 		public async Task<object> Decompile(object assemblyFileName)
 		{
-            ModuleDefinition module = LoadModule(assemblyFileName as string);
-			var typeSystem = new DecompilerTypeSystem(module);
-			CSharpDecompiler decompiler = new CSharpDecompiler(typeSystem, new DecompilerSettings());
-
-			decompiler.AstTransforms.Add(new EscapeInvalidIdentifiers());
-			SyntaxTree syntaxTree;
-			syntaxTree = decompiler.DecompileWholeModuleAsSingleFile();
-
-            var sb = new StringBuilder();
-            using (var tw = new StringWriter(sb))
+            try
             {
-                await Task.Run(() =>
+                ModuleDefinition module = LoadModule(assemblyFileName as string);
+                var typeSystem = new DecompilerTypeSystem(module);
+                CSharpDecompiler decompiler = new CSharpDecompiler(typeSystem, new DecompilerSettings());
+
+                decompiler.AstTransforms.Add(new EscapeInvalidIdentifiers());
+                SyntaxTree syntaxTree;
+                syntaxTree = decompiler.DecompileWholeModuleAsSingleFile();
+
+                var sb = new StringBuilder();
+                using (var tw = new StringWriter(sb))
                 {
-                    var visitor = new CSharpOutputVisitor(tw, FormattingOptionsFactory.CreateSharpDevelop());
-                    syntaxTree.AcceptVisitor(visitor);
-                });
-			}
-			return sb.ToString();
+                    await Task.Run(() =>
+                    {
+                        var visitor = new CSharpOutputVisitor(tw, FormattingOptionsFactory.CreateSharpDevelop());
+                        syntaxTree.AcceptVisitor(visitor);
+                    });
+                }
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
 		}
 
 

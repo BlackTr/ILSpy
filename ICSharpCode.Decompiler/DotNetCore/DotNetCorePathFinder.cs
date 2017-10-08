@@ -50,6 +50,9 @@ namespace ICSharpCode.Decompiler
 			this.version = version;
 			this.loadInfo = loadInfo;
 
+            packageBasePaths.Add(string.Format("/usr/local/share/dotnet/shared/Microsoft.NETCore.App/{0}", version));
+			packageBasePaths.Add(string.Format("/usr/local/share/dotnet/shared/Microsoft.NETCore.App/{0}", "2.0.0"));
+
 			var depsJsonFileName = Path.Combine(basePath, $"{assemblyName}.deps.json");
 			if (!File.Exists(depsJsonFileName)) {
 				loadInfo.AddMessage(assemblyName, MessageKind.Error, $"{assemblyName}.deps.json could not be found!");
