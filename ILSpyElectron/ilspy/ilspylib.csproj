@@ -7,9 +7,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Humanizer.Core" Version="2.2.0" />
@@ -1806,6 +1808,9 @@
     </Compile>
     <Compile Include="..\..\ICSharpCode.Decompiler\Documentation\XmlDocumentationProvider.cs">
       <Link>Documentation\XmlDocumentationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ICSharpCode.Decompiler\IL\Instructions\CallIndirect.cs">
+      <Link>IL\Instructions\CallIndirect.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
